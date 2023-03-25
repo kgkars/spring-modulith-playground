@@ -1,0 +1,18 @@
+server:
+  port: '8082'
+
+spring:
+  datasource:
+    username: playground
+    url: jdbc:postgresql://localhost:5432/playground
+    driverClassName: org.postgresql.Driver
+    password: password
+  jpa:
+    hibernate:
+      database: postgresql
+      show-sql: 'true'
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: 'true'
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
