@@ -29,8 +29,8 @@ public class UserExceptionHandler {
         return new ResponseEntity<>(response, httpStatus);
     }
 
-    @ExceptionHandler(value = InvalidUserIdFormat.class)
-    public ResponseEntity<Object> handleInvalidUserIdFormatException(InvalidUserIdFormat exception) {
+    @ExceptionHandler(value = InvalidUserIdFormatException.class)
+    public ResponseEntity<Object> handleInvalidUserIdFormatException(InvalidUserIdFormatException exception) {
 
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
