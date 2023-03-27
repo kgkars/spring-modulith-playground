@@ -10,8 +10,8 @@ spring:
   jpa:
     hibernate:
       database: postgresql
-      show-sql: 'true'
       ddl-auto: create-drop
+    show-sql: 'true'
     properties:
       hibernate:
         format_sql: 'true'

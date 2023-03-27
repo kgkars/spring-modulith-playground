@@ -1,7 +1,7 @@
-package kgkars.spring.modulith.playground.user.internal;
+package kgkars.spring.modulith.playground.user.internal.controller;
 
-import kgkars.spring.modulith.playground.user.NewUserDTO;
-import kgkars.spring.modulith.playground.user.User;
+import kgkars.spring.modulith.playground.common.dto.NewUserDTO;
+import kgkars.spring.modulith.playground.user.internal.entity.User;
 import kgkars.spring.modulith.playground.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

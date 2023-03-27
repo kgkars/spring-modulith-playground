@@ -1,10 +1,13 @@
-package kgkars.spring.modulith.playground.user;
+package kgkars.spring.modulith.playground.user.internal.entity;
 
 import jakarta.persistence.*;
+import kgkars.spring.modulith.playground.common.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +22,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Table(name = "tbl_user", uniqueConstraints = @UniqueConstraint(name = "email_unique", columnNames = "email"))
-public class User implements UserDetails {
+@Slf4j
+public class User extends AbstractAggregateRoot<User> implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,9 +35,9 @@ public class User implements UserDetails {
     @Column(length = 60)
     private String password;
 
-    private boolean enabled = false;
-    private boolean locked = false;
-    private boolean expired = false;
+    private boolean enabled;
+    private boolean locked;
+    private boolean expired;
 
     @Enumerated(EnumType.STRING)
     private Role role;

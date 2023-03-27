@@ -16,16 +16,14 @@ The playground is built in a layered approach, leveraging feature branches for e
 Branch `step-1` covers the following:
 
  - Create `user` module.
- - Create `role` module.
- - Create `address` module.
- - Create Events for managing inter-modular dependencies.
- - Create tests to verify modularity.
+
 
 ### Step 2 *(Forthcoming...)*
 
 Branch `step-2` covers the following:
 
  - Set up `auth` module and Spring Security.
+ - Set up events for registering new users.
 
 ### Step 3 *(Forthcoming...)*
 

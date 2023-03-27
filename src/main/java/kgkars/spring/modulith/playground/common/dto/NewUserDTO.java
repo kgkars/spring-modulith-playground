@@ -1,5 +1,6 @@
-package kgkars.spring.modulith.playground.user;
+package kgkars.spring.modulith.playground.common.dto;
 
+import kgkars.spring.modulith.playground.common.dto.AddressDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,6 @@ public class NewUserDTO {
     private String email;
     private String password;
     private String role;
+    private AddressDTO[] addresses;
+
 }

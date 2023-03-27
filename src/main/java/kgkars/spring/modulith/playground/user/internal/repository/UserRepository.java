@@ -1,6 +1,6 @@
-package kgkars.spring.modulith.playground.user.internal;
+package kgkars.spring.modulith.playground.user.internal.repository;
 
-import kgkars.spring.modulith.playground.user.User;
+import kgkars.spring.modulith.playground.user.internal.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
