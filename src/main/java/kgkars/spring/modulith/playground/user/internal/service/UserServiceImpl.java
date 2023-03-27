@@ -8,6 +8,7 @@ import kgkars.spring.modulith.playground.common.dto.NewUserDTO;
 import kgkars.spring.modulith.playground.common.Role;
 import kgkars.spring.modulith.playground.user.internal.entity.User;
 import kgkars.spring.modulith.playground.user.UserService;
+import kgkars.spring.modulith.playground.user.internal.exception.UserNotFoundException;
 import kgkars.spring.modulith.playground.user.internal.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.valueOf(newUser.getRole()));
 
         _userRepository.save(user);
+
 
         if (newUser.getAddresses() != null && newUser.getAddresses().length > 0) {
 
@@ -68,9 +70,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(UUID id) {
+    public User findUserById(UUID id) throws UserNotFoundException {
         return _userRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new UserNotFoundException("No user with found with id: " + id));
     }
 
     private final AddressService _addressService;

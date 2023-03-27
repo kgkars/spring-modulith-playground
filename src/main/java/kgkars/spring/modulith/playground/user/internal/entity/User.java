@@ -2,10 +2,7 @@ package kgkars.spring.modulith.playground.user.internal.entity;
 
 import jakarta.persistence.*;
 import kgkars.spring.modulith.playground.common.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.AbstractAggregateRoot;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +17,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper=false)
 @Builder
 @Table(name = "tbl_user", uniqueConstraints = @UniqueConstraint(name = "email_unique", columnNames = "email"))
 @Slf4j
