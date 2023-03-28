@@ -1,7 +1,7 @@
 package kgkars.spring.modulith.playground.user.internal.controller;
 
 import kgkars.spring.modulith.playground.common.Role;
-import kgkars.spring.modulith.playground.common.dto.NewUserDTO;
+import kgkars.spring.modulith.playground.common.dto.UserRegistrationRequest;
 import kgkars.spring.modulith.playground.user.UserService;
 import kgkars.spring.modulith.playground.user.internal.entity.User;
 import kgkars.spring.modulith.playground.user.internal.exception.InvalidUserIdFormatException;
@@ -85,7 +85,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Save valid user")
     void saveValidUser() throws Exception {
-        NewUserDTO newUser = NewUserDTO.builder()
+        UserRegistrationRequest request = UserRegistrationRequest.builder()
                 .firstName("John")
                 .lastName("Smith")
                 .email("test@email.com")
@@ -93,7 +93,7 @@ class UserControllerTest {
                 .role("USER")
                 .build();
 
-        Mockito.when(_userService.create(newUser))
+        Mockito.when(_userService.create(request))
                 .thenReturn(_user);
 
         _mockMvc.perform(post("/api/v1/user/create")
@@ -111,7 +111,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Save user with same email")
     void saveUserWithSameEmail() throws Exception {
-        NewUserDTO newUser = NewUserDTO.builder()
+        UserRegistrationRequest request = UserRegistrationRequest.builder()
                 .firstName("John")
                 .lastName("Smith")
                 .email("test@email.com")
@@ -119,7 +119,7 @@ class UserControllerTest {
                 .role("USER")
                 .build();
 
-        Mockito.when(_userService.create(newUser))
+        Mockito.when(_userService.create(request))
                 .thenThrow(new DataIntegrityViolationException("User id already in use"));
 
         _mockMvc.perform(post("/api/v1/user/create")
@@ -131,7 +131,7 @@ class UserControllerTest {
                                 "\t\"password\": \"1234\",\n" +
                                 "\t\"role\": \"USER\"\n" +
                                 "}"))
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(status().isBadRequest());
     }
 
     private UUID _MOCK_UUID = UUID.fromString("3ce7d9ea-6978-4a8e-9b0a-77b998a1fda");

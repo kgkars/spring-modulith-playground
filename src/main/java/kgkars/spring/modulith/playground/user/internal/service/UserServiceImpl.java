@@ -1,10 +1,11 @@
 package kgkars.spring.modulith.playground.user.internal.service;
 
 import jakarta.transaction.Transactional;
+import kgkars.spring.modulith.playground.auth.RegisterNewUserEvent;
 import kgkars.spring.modulith.playground.common.dto.AddressDTO;
+import kgkars.spring.modulith.playground.common.dto.UserRegistrationRequest;
 import kgkars.spring.modulith.playground.user.internal.entity.Address;
 import kgkars.spring.modulith.playground.common.AddressType;
-import kgkars.spring.modulith.playground.common.dto.NewUserDTO;
 import kgkars.spring.modulith.playground.common.Role;
 import kgkars.spring.modulith.playground.user.internal.entity.User;
 import kgkars.spring.modulith.playground.user.UserService;
@@ -13,8 +14,11 @@ import kgkars.spring.modulith.playground.user.internal.repository.UserRepository
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
+import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,23 +29,29 @@ import java.util.UUID;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
+    @EventListener
+    public void registerNewUser(RegisterNewUserEvent event) {
+        log.info("Inside User Service");
+        User user = create(event.getRequest());
+    }
+
     @Override
     @Transactional
-    public User create(NewUserDTO newUser) {
+    public User create(UserRegistrationRequest request) {
         User user = new User();
 
-        user.setFirstName(newUser.getFirstName());
-        user.setLastName(newUser.getLastName());
-        user.setEmail(newUser.getEmail());
-        user.setPassword(_passwordEncoder.encode(newUser.getPassword()));
-        user.setRole(Role.valueOf(newUser.getRole()));
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setPassword(_passwordEncoder.encode(request.getPassword()));
+        user.setRole(Role.valueOf(request.getRole()));
 
         _userRepository.save(user);
 
 
-        if (newUser.getAddresses() != null && newUser.getAddresses().length > 0) {
+        if (request.getAddresses() != null && request.getAddresses().length > 0) {
 
-            for (AddressDTO dtoAddress : newUser.getAddresses()) {
+            for (AddressDTO dtoAddress : request.getAddresses()) {
 
                 log.info(dtoAddress.toString());
 
