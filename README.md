@@ -18,12 +18,15 @@ Branch `step-1` covers the following:
  - Create `user` module.
 
 
-### Step 2 *(Forthcoming...)*
+### Step 2
 
 Branch `step-2` covers the following:
 
  - Set up `auth` module and Spring Security.
  - Set up events for registering new users.
+
+> NOTE: Given authentication does not have an entity of its own, events need to be published using the `ApplicationEventPublisher`. Native `DomainEvents` only trigger when a repository's `.save()` call is made.
+
 
 ### Step 3 *(Forthcoming...)*
 
