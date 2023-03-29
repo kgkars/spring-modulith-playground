@@ -3,7 +3,7 @@ package kgkars.spring.modulith.playground.user.internal.controller;
 import jakarta.validation.Valid;
 import kgkars.spring.modulith.playground.common.dto.UserRegistrationRequest;
 import kgkars.spring.modulith.playground.user.UserService;
-import kgkars.spring.modulith.playground.user.internal.entity.User;
+import kgkars.spring.modulith.playground.user.User;
 import kgkars.spring.modulith.playground.user.internal.exception.InvalidUserIdFormatException;
 import kgkars.spring.modulith.playground.user.internal.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;

@@ -2,6 +2,7 @@ package kgkars.spring.modulith.playground.user.internal.entity;
 
 import jakarta.persistence.*;
 import kgkars.spring.modulith.playground.common.AddressType;
+import kgkars.spring.modulith.playground.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -7,7 +7,7 @@ import kgkars.spring.modulith.playground.common.dto.UserRegistrationRequest;
 import kgkars.spring.modulith.playground.user.internal.entity.Address;
 import kgkars.spring.modulith.playground.common.AddressType;
 import kgkars.spring.modulith.playground.common.Role;
-import kgkars.spring.modulith.playground.user.internal.entity.User;
+import kgkars.spring.modulith.playground.user.User;
 import kgkars.spring.modulith.playground.user.UserService;
 import kgkars.spring.modulith.playground.user.internal.exception.UserNotFoundException;
 import kgkars.spring.modulith.playground.user.internal.repository.UserRepository;
@@ -15,13 +15,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
-import org.springframework.modulith.ApplicationModuleListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,7 +30,6 @@ public class UserServiceImpl implements UserService {
 
     @EventListener
     public void registerNewUser(RegisterNewUserEvent event) {
-        log.info("Inside User Service");
         User user = create(event.getRequest());
     }
 
@@ -45,6 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(request.getEmail());
         user.setPassword(_passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.valueOf(request.getRole()));
+        user.setEnabled(true);
 
         _userRepository.save(user);
 
@@ -52,8 +51,6 @@ public class UserServiceImpl implements UserService {
         if (request.getAddresses() != null && request.getAddresses().length > 0) {
 
             for (AddressDTO dtoAddress : request.getAddresses()) {
-
-                log.info(dtoAddress.toString());
 
                 Address address = new Address();
                 List<AddressType> addressTypes = new ArrayList<>();
@@ -77,6 +74,12 @@ public class UserServiceImpl implements UserService {
         }
 
         return user;
+    }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) throws UserNotFoundException {
+        return Optional.ofNullable(_userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("No user with found with email: " + email)));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package kgkars.spring.modulith.playground.user.internal.entity;
+package kgkars.spring.modulith.playground.user;
 
 import jakarta.persistence.*;
 import kgkars.spring.modulith.playground.common.Role;
