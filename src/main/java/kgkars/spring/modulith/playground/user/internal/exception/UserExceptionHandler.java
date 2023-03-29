@@ -46,7 +46,7 @@ public class UserExceptionHandler {
     @ExceptionHandler(value = DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleDataIntegrityViolationExceptions(DataIntegrityViolationException exception) {
 
-        HttpStatus httpStatus = HttpStatus.UNPROCESSABLE_ENTITY;
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
         ExceptionResponse response = new ExceptionResponse(
                 exception.getMessage(),

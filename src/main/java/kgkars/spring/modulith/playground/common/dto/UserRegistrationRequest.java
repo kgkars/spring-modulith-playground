@@ -1,5 +1,6 @@
 package kgkars.spring.modulith.playground.common.dto;
 
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,11 +10,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO for new User registration requests.
+ *
+ * @author Kris Karstedt
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NewUserDTO {
+public class UserRegistrationRequest {
 
     @NotBlank
     private String firstName;
