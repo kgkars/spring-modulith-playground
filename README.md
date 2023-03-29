@@ -30,7 +30,7 @@ Branch `step-2` covers the following:
 > NOTE: Given authentication does not have an entity of its own, events need to be published using the `ApplicationEventPublisher`. Native `DomainEvents` only trigger when a repository's `.save()` call is made.
 
 
-### Step 3 *(Forthcoming...)*
+### Step 3
 
 Branch `step-3` covers the following:
 
