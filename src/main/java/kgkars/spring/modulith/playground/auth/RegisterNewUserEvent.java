@@ -14,8 +14,6 @@ public class RegisterNewUserEvent extends ApplicationEvent {
     public RegisterNewUserEvent(UserRegistrationRequest request) {
         super(request);
 
-        log.info("Inside RegisterNewUserEvent");
-
         this.request = request;
     }
 
